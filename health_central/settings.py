@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -62,8 +62,20 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'health_central.wsgi.application'
-
 ASGI_APPLICATION = 'health_central.asgi.application'
+
+
+CHANNEL_LAYERS = {
+    "default": {
+       "BACKEND": "channels_redis.core.RedisChannelLayer",
+       # "BACKEND": "channels.layers.InMemoryChannelLayer",
+        "CONFIG": {
+            "hosts": [(config('REDIS_IP_HOST','127.0.0.1'), 6379)],
+
+        } 
+    },
+}
+    
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

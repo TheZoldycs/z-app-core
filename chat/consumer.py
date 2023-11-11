@@ -1,3 +1,5 @@
+import django
+django.setup()
 import json
 import re
 from django.contrib.auth.models import User
@@ -22,14 +24,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name,
             self.channel_name
         )
-    def is_valid_message(self, message):
-        """
-        Validate the message content.
-        For example, you can check if the message contains only alphanumeric characters.
-        Modify this function as needed for your specific validation rules.
-        """
-        # Example: Allow only alphanumeric characters and spaces
-        return bool(re.match(r'^[a-zA-Z0-9\s]*$', message))
     # Receive message from WebSocket
     async def receive(self, text_data):
         self.user = self.scope['user']  # get current user
@@ -40,13 +34,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         email = data['email']
         room = data['room']
         # Validate the message
-        if not self.is_valid_message(message):
-            # Handle invalid message here (e.g., send an error message)
-            print("error")
-            await self.send(text_data=json.dumps({
-                'error': 'Invalid message content',
-            }))
-            return
+        #self.validate_message(message)
         await self.save_message(email , room, message)
         # Send message to room group
         await self.channel_layer.group_send(

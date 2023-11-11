@@ -5,7 +5,7 @@ from channels.security.websocket import OriginValidator
 django_asgi_app = get_asgi_application()
 
 print("start channels")
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'vulnvision.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'health_central.settings')
 django.setup()
 # is populated before importing code that may import ORM models.
 from channels.routing import ProtocolTypeRouter,URLRouter
