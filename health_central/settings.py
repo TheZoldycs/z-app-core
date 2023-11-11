@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     "graphene_django",
     "django_filters",
     "chat" ,
+    "celery",
+    "rabbitmq",
+    "django_celery_results",
 
 ]
 
@@ -132,3 +135,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GRAPHENE = {
     "SCHEMA": "tracking_app.schema.schema"
 }
+
+# Celery Configuration Options
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_RESULT_EXTENDED = True
+CELERY_TASK_TRACK_STARTED = True
+CELERY_worker_state_db = True
+CELERY_result_persistent=True
+
+
+# Rabbitmq Configuration Options
+RABBITMQ_EXCHANGE = "z_app"
+RABBITMQ_EXCHANGE_TYPE = "fanout"
+RABBITMQ_ROUTING_KEY = "z_app"
+RABBITMQ_QUEUE = "z_app_backend"
+RABBITMQ_HOST = config('DJANGO_RABBITMQ_HOST')
+RABBITMQ_USER = config('DJANGO_RABBITMQ_USER')
+RABBITMQ_PASSWORD = config('DJANGO_RABBITMQ_PASSWORD')
