@@ -41,10 +41,3 @@ To use Z-app-core, you can send GraphQL queries to the following endpoint:
 
 You can also use the Django admin interface to manage the Z-app-core backend and its data.
 
-**Contributing:**
-
-If you would like to contribute to Z-app-core, please feel free to open a pull request. We welcome all contributions, big or small.
-
-**License:**
-
-Z-app-core is licensed under the MIT License.
