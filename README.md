@@ -1,43 +1,63 @@
-### Z-app-core
+# Z-app-core
 
-**Description:**
+Z-app-core is the backend core for the Z app, providing essential functionality and services to support the application.
 
-Z-app-core is a backend core for Z app written in Python using Django 4.2.7, GraphQL API, RabbitMQ via pika, celery multithreading, PostgreSQL, and Redis broker. It provides a variety of features, including:
+## Description
 
-* Authentication and authorization
-* User management
-* Task management
-* Knowledge base
-* GraphQL API
+This project serves as the backbone for the Z app, handling core functionalities and providing a robust backend infrastructure. It is built with Python, Django 4.2.7, and employs various technologies to ensure seamless operation.
 
-**Technologies:**
+## Technologies Used
 
-* Python
-* Django 4.2.7
-* GraphQL API
-* RabbitMQ via pika
-* celery multithreading
-* PostgreSQL
-* Redis broker
+- **Python**: The primary programming language for the project.
+- **Django 4.2.7**: A high-level Python web framework for rapid development and clean, pragmatic design.
+- **GraphQL API**: A powerful query language for APIs, providing a more efficient, powerful, and flexible alternative to REST.
+- **RabbitMQ via Pika**: A message broker that facilitates communication between different parts of the application.
+- **Celery with Multithreading**: A distributed task queue that allows for the processing of asynchronous tasks in a scalable and efficient way.
+- **PostgreSQL**: A robust relational database management system used to store and retrieve data.
+- **Redis Broker**: A high-performance in-memory data structure store used as a message broker.
 
-**Getting Started:**
+## Getting Started
 
-To get started with Z-app-core, clone this repository and run the following commands:
+### Prerequisites
 
-```
-pip install -r requirements.txt
-python manage.py migrate
-celery -A z_app_core worker --concurrency=4
-python manage.py runserver
-```
+Make sure you have the following installed:
 
-Once the server is running, you can access Z-app-core at `http://localhost:8000/graphql`.
+- [Python](https://www.python.org/)
+- [Django 4.2.7](https://www.djangoproject.com/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [RabbitMQ](https://www.rabbitmq.com/)
+- [Redis](https://redis.io/)
 
-**Usage:**
+### Installation
 
-To use Z-app-core, you can send GraphQL queries to the following endpoint:
+1. Clone the repository:
 
-* `/graphql`: This endpoint allows you to execute GraphQL queries against the Z-app-core backend.
+    ```bash
+    git clone https://github.com/yourusername/Z-app-core.git
+    cd Z-app-core
+    ```
 
-You can also use the Django admin interface to manage the Z-app-core backend and its data.
+2. Install dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Run migrations:
+
+    ```bash
+    python manage.py migrate
+    ```
+
+4. Start the development server:
+
+    ```bash
+    python manage.py runserver
+    ```
+
+## Usage
+
+Describe how to use the various features and functionalities provided by Z-app-core. Include examples and code snippets where necessary.
+
+
 
