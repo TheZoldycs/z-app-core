@@ -3,7 +3,6 @@ import os
 from django.core.asgi import get_asgi_application
 from channels.security.websocket import OriginValidator
 django_asgi_app = get_asgi_application()
-
 print("start channels")
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'health_central.settings')
 django.setup()

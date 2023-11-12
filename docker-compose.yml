@@ -1,0 +1,76 @@
+version: "3.8"
+
+
+services:
+  # Redis
+  z_redis:
+    image: redis:7.2-rc1-alpine
+    container_name: z_redis
+
+  # Postgres database
+  z_postgres_db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=z
+      - POSTGRES_USER=z
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    container_name: z_postgres_db
+
+
+  # z service
+  z:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: z:latest
+    container_name: z
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/z
+    ports:
+      - 8000:8000
+    depends_on:
+      - z_postgres_db
+      - z_redis
+
+
+  z_read_write_worker:
+    image: z:latest
+    container_name: z_read_write_worker
+    restart: always
+    command: celery -A z worker -Q read_write -c 2
+    volumes:
+      - .:/z
+    depends_on:
+      - z_postgres_db
+      - z_redis
+
+  # z RABBITMQ Consumer service
+  z_consumer:
+    image: z:latest
+    container_name: z_consumer
+    restart: always
+    command: python manage.py rabbitmq_consume
+    volumes:
+      - .:/z
+    depends_on:
+      - z_postgres_db
+      - z_redis
+
+  # z Channels service
+  z_channels:
+    image: z:latest
+    container_name: z_channels
+    restart: always
+    command: daphne -p 8001 z.asgi:application
+    volumes:
+      - .:/z
+    ports:
+      - 8001:8001
+    depends_on:
+      - z_postgres_db
+      - z_redis
